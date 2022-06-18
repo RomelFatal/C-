@@ -1,0 +1,78 @@
+10.5.3: A first linked list.
+
+pigCount is read from input as the number of input values that follow. The node headPig is created with the value of pigCount. Use cin to read pigCount integers and for each integer, insert a PigNode at the end of the linked list.
+
+Ex: If the input is 3 6 19 13, then the output is:
+
+3
+6
+19
+13
+
+
+
+
+#include <iostream>
+using namespace std;
+  
+class PigNode {
+   public:
+      PigNode(int pigletsInit = 0, PigNode* nextLoc = nullptr);
+      void InsertAfter(PigNode* nodeLoc);
+      PigNode* GetNext();
+      void PrintNodeData();
+   private:
+      int pigletsVal;
+      PigNode* nextNodePtr;
+};
+
+int main() {
+   PigNode* headPig = nullptr;
+   PigNode* currPig = nullptr;
+   PigNode* lastPig = nullptr;
+   int pigCount;
+   int inputValue;
+   int i;
+
+   cin >> pigCount;
+   
+   headPig = new PigNode(pigCount);
+   lastPig = headPig;
+   
+   /* Your code goes here */
+   for (i = 0; i < pigCount; i++) {
+      cin >> inputValue;
+      currPig = new PigNode(inputValue);
+      lastPig->InsertAfter(currPig);
+      lastPig = currPig;
+   }
+
+   currPig = headPig;
+   while (currPig != nullptr) {
+      currPig->PrintNodeData();
+      currPig = currPig->GetNext();
+   }
+
+   return 0;
+}
+
+PigNode::PigNode(int pigletsInit, PigNode* nextLoc) {
+   this->pigletsVal = pigletsInit;
+   this->nextNodePtr = nextLoc;
+}
+
+void PigNode::InsertAfter(PigNode* nodeLoc) {
+   PigNode* tmpNext = nullptr;
+
+   tmpNext = this->nextNodePtr;
+   this->nextNodePtr = nodeLoc;
+   nodeLoc->nextNodePtr = tmpNext;
+}
+
+PigNode* PigNode::GetNext() {
+   return this->nextNodePtr;
+}
+
+void PigNode::PrintNodeData() {
+   cout << this->pigletsVal << endl;
+}
