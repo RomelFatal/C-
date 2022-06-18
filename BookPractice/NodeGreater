@@ -1,0 +1,75 @@
+Multiple integers are read and inserted into a linked list of SetNodes. For each integer greater than 49 in the linked list of SetNodes, print the integer followed by " is very productive number of sets" on a new line.
+
+Ex: If the input is 2 36 50, then the output is:
+
+
+
+#include <iostream>
+using namespace std;
+  
+class SetNode {
+   public:
+      SetNode(int subsetsInit = 0, SetNode* nextLoc = nullptr);
+      void InsertAfter(SetNode* nodeLoc);
+      SetNode* GetNext();
+      int GetNodeData();
+   private:
+      int subsetsVal;
+      SetNode* nextNodePtr;
+};
+
+int main() {
+   SetNode* headSet = nullptr;
+   SetNode* currSet = nullptr;
+   SetNode* lastSet = nullptr;
+   int count;
+   int inputValue;
+   int i;
+   
+   cin >> count;
+   
+   headSet = new SetNode(count);
+   lastSet = headSet;
+
+   for (i = 0; i < count; ++i) {
+      cin >> inputValue;
+      
+      currSet = new SetNode(inputValue);
+      
+      lastSet->InsertAfter(currSet);
+      lastSet = currSet;
+   }
+   
+   /* Your code goes here */
+   // iterate through list 
+    currSet = headSet;
+    while (currSet != nullptr) {
+       if (currSet->GetNodeData() > 49) {
+          cout << currSet->GetNodeData() <<" is very productive number of sets\n";
+        }
+        currSet = currSet->GetNext();
+    }
+   
+   return 0;
+}
+
+SetNode::SetNode(int subsetsInit, SetNode* nextLoc) {
+   this->subsetsVal = subsetsInit;
+   this->nextNodePtr = nextLoc;
+}
+
+void SetNode::InsertAfter(SetNode* nodeLoc) {
+   SetNode* tmpNext = nullptr;
+
+   tmpNext = this->nextNodePtr;
+   this->nextNodePtr = nodeLoc;
+   nodeLoc->nextNodePtr = tmpNext;
+}
+
+SetNode* SetNode::GetNext() {
+   return this->nextNodePtr;
+}
+
+int SetNode::GetNodeData() {
+   return this->subsetsVal;
+}
