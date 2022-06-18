@@ -1,0 +1,35 @@
+/* Write code that uses the input string stream inSS to read input data from string userInput, and updates variables userMonth, userDate, and userYear. Sample output if the input is "Jan 12 1992":
+* Month: Jan
+* Date: 12
+* Year: 1992
+*/
+
+
+
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+
+int main() {
+   istringstream inSS;
+   string userInput;
+   string userMonth;
+   int userDate;
+   int userYear;
+
+   getline(cin, userInput);
+   inSS.str(userInput);
+
+   /* Your solution goes here  */
+   inSS >> userMonth;
+   inSS >> userDate;
+   inSS >> userYear;
+ 
+
+   cout << "Month: " << userMonth << endl
+        << "Date: " << userDate << endl
+        << "Year: " << userYear << endl;
+
+   return 0;
+}
